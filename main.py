@@ -23,11 +23,11 @@ r1 = '🧻'
 def bot_main(message):
     if message.text.lower()[0:7] == 'сложить':
         my_sum(message)
-    elif message.text.lower() == y :
+    elif message.text.lower() in [y, y1] :
         my_game(message)
-    elif message.text.lower() == e :
+    elif message.text.lower() in [e, e1] :
         my_game(message)
-    elif message.text.lower() == r :   
+    elif message.text.lower() in [r, r1] :   
         my_game(message)
     else :
         bot.send_message(message.chat.id, '''Введите камень,ножницы или бумага - что бы поиграть в игру.
@@ -36,34 +36,34 @@ def my_game(message):
     x=int(random()*3)
 
     if x == 0:
-        if message.text.lower() == y:
+        if message.text.lower()  in [y, y1] :
             bot.send_message(message.chat.id, 'компьютер показал камень🪨, у вас ничья')
                 
-        elif message.text.lower() ==    e:        
+        elif message.text.lower() in [e, e1] :        
             bot.send_message(message.chat.id, 'компьютер показал камень🪨, вы проиграли')
         
-        elif message.text.lower() == r:
+        elif message.text.lower() in [r, r1] :
             bot.send_message(message.chat.id, 'компьютер показал камень🪨, вы выйграли!')
                 
                 
     elif x == 1:
-        if message.text.lower() == y:
+        if message.text.lower()  in [y, y1] :
             bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, вы выйграли!')
                 
-        elif message.text.lower() ==    e:        
+        elif message.text.lower() in [e, e1] :        
             bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, у вас ничья! ')
         
-        elif message.text.lower() == r:
+        elif message.text.lower() in [r, r1] :
             bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, вы проиграли!')
                 
     elif x == 2:
-        if message.text.lower() == y:
+        if message.text.lower()  in [y, y1] :
             bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, вы проиграли')
                 
-        elif message.text.lower() ==  e:        
+        elif message.text.lower() in [e, e1] :        
             bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, вы выйграли!')
         
-        elif message.text.lower() == r:
+        elif message.text.lower() in [r, r1] :
             bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, у вас ничья')
                 
                 
