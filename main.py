@@ -36,41 +36,73 @@ def bot_main(message):
 Введите "сложить Х и У, что бы получить сумму чисел "Х и У"''')
 def my_game(message):    
     x=int(random()*3)
+    check_comp = 0
+    check_player = 0
+    
 
     if x == 0:
         if message.text.lower()  in [y, y1] :
-            bot.send_message(message.chat.id, 'компьютер показал камень🪨, у вас ничья')
+        
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, у вас ничья. {check}')
                 
-        elif message.text.lower() in [e, e1] :        
-            bot.send_message(message.chat.id, 'компьютер показал камень🪨, вы проиграли')
+        elif message.text.lower() in [e, e1] :  
+            check_comp +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы проиграли. {check}')
+            
+            return check_comp
         
         elif message.text.lower() in [r, r1] :
-            bot.send_message(message.chat.id, 'компьютер показал камень🪨, вы выйграли!')
+            check_player +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы выйграли! {check}')
+            
+            return check_player
                 
                 
     elif x == 1:
         if message.text.lower()  in [y, y1] :
-            bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, вы выйграли!')
-                
-        elif message.text.lower() in [e, e1] :        
-            bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, у вас ничья! ')
+            check_player +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, вы выйграли! {check}')
+            
+            return check_player    
+            
+        elif message.text.lower() in [e, e1] :
+        
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, у вас ничья. {check}')
         
         elif message.text.lower() in [r, r1] :
-            bot.send_message(message.chat.id, 'компьютер показал ножницы✂️, вы проиграли!')
+            check_comp +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, вы проиграли. {check}')
+            
+            return check_comp 
                 
     elif x == 2:
         if message.text.lower()  in [y, y1] :
-            bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, вы проиграли')
+            check_comp +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, вы проиграли. {check}')
+            
+            return check_comp
                 
-        elif message.text.lower() in [e, e1] :        
-            bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, вы выйграли!')
+        elif message.text.lower() in [e, e1] :
+            check_player +=1
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, вы выйграли! {check}')
+            
+            return check_player
         
         elif message.text.lower() in [r, r1] :
-            bot.send_message(message.chat.id, 'компьютер показал бумагу🧻, у вас ничья')
+        
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, у вас ничья. {check}')
                 
                 
-       # else :
-          #  bot.send_message(message.chat.id, 'введите камень,ножницы или бумага или "сложить Х и У, что бы получить сумму чисел "Ч и У"')
+
             
         
             
