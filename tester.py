@@ -43,4 +43,4 @@ def my_game(message):
         elif message.lower() in [r, r1]:
             print('компьютер показал бумагу🧻, у вас ничья')
 
-my_game('🧻')
+my_game('🧻')# recvest
