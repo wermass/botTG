@@ -5,6 +5,7 @@
 
 import telebot
 from random import random
+from game import my_game
 API_TOKEN = '5047557999:AAHVO2o8e3pBwKnlKiIdCbGwSse7ycEO9O8'
 
 bot = telebot.TeleBot(API_TOKEN)
@@ -18,89 +19,20 @@ e = 'ножницы'
 e1 = '✂️'
 # переменные бумага
 r = 'бумага'
-r1 = '🧻'
+r1 = '🧻'    
+
 @bot.message_handler(func=lambda message: True) 
 def bot_main(message):
     if message.text.lower()[0:7] == 'сложить':
         my_sum(message)
-    elif message.text.lower() in [y, y1] :
-        my_game(message)
-    elif message.text.lower() in [e, e1] :
-        my_game(message)
-    elif message.text.lower() in [r, r1] :   
-        my_game(message)
+    elif message.text.lower() in [y, y1, e, e1, r, r1] :
+        my_game(message, bot)
     else :
         bot.send_message(message.chat.id, '''Что бы поиграть в игру-
         Введите камень,ножницы или бумага
         (можно смайликами 🪨, ✂️, 🧻).
 Введите "сложить Х и У, что бы получить сумму чисел "Х и У"''')
-def my_game(message):    
-    x=int(random()*3)
-    check_comp = 0
-    check_player = 0
-    
-
-    if x == 0:
-        if message.text.lower()  in [y, y1] :
-        
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал камень🪨, у вас ничья. {check}')
-                
-        elif message.text.lower() in [e, e1] :  
-            check_comp +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы проиграли. {check}')
-            
-            return check_comp
-        
-        elif message.text.lower() in [r, r1] :
-            check_player +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы выйграли! {check}')
-            
-            return check_player
-                
-                
-    elif x == 1:
-        if message.text.lower()  in [y, y1] :
-            check_player +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, вы выйграли! {check}')
-            
-            return check_player    
-            
-        elif message.text.lower() in [e, e1] :
-        
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, у вас ничья. {check}')
-        
-        elif message.text.lower() in [r, r1] :
-            check_comp +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал ножницы✂️, вы проиграли. {check}')
-            
-            return check_comp 
-                
-    elif x == 2:
-        if message.text.lower()  in [y, y1] :
-            check_comp +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, вы проиграли. {check}')
-            
-            return check_comp
-                
-        elif message.text.lower() in [e, e1] :
-            check_player +=1
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, вы выйграли! {check}')
-            
-            return check_player
-        
-        elif message.text.lower() in [r, r1] :
-        
-            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
-            bot.send_message(message.chat.id, f'компьютер показал бумагу🧻, у вас ничья. {check}')
-                
+               
                 
 
             
