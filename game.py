@@ -26,29 +26,20 @@ def my_game(message, bot):
     if x == 0:
         if message.text.lower()  in [y, y1, y+y1, y1+y] :
         
-            check = f'''
-
- Счет компьютер - {check_comp} Вы - {check_player}'''
-            bot.send_message(message.chat.id, f'''компьютер показал камень🪨, у вас ничья. 
-{check} ''')
+            check = f' Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, у вас ничья. \n {check} ')
             
         elif message.text.lower() in [e, e1, e+e1, e1+e] :  
             check_comp +=1
-            check = f''' 
-
-Счет компьютер - {check_comp} Вы - {check_player}'''
-            bot.send_message(message.chat.id, f'''компьютер показал камень🪨, вы проиграли. 
-{check}''')
+            check = f'Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы проиграли. \n {check}')
             
             return check_comp
         
         elif message.text.lower() in [r, r1, r+r1, r1+r] :
             check_player +=1
-            check = f''' 
-
-Счет компьютер - {check_comp} Вы - {check_player}'''
-            bot.send_message(message.chat.id, f'''компьютер показал камень🪨, вы выйграли! 
-{check}''')
+            check = f'Счет компьютер - {check_comp} Вы - {check_player}'
+            bot.send_message(message.chat.id, f'компьютер показал камень🪨, вы выйграли! \n {check}')
             
             return check_player
                 
