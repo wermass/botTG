@@ -1,13 +1,14 @@
 import telebot
 from telebot import types
 from random import random
-
+import pickle
 
 
 API_TOKEN = '5047557999:AAHVO2o8e3pBwKnlKiIdCbGwSse7ycEO9O8'
 bot = telebot.TeleBot(API_TOKEN)
 
-
+with open('check_bots_game.bin', 'rb') as f:
+    data_new = pickle.load(f)  # в эту переменную он загружает всё из файла 'check_bots_game.bin'
 
 
 # тут я попытался сделать словарь, который будет после команды /start добавлять по ключ "user"(по умолчанию пустая строка) со значением "х", 
@@ -21,6 +22,7 @@ user = 0
 x = user + 1
 test = {        
 }                       # обозначать первым счёт компа, вторым счёт игрока
+test = data_new  #  просто приравнял значение словаря к переменной из pickle
 # переменные камня
 y = 'камень'
 y1 = '🪨'
@@ -32,8 +34,9 @@ r = 'бумага'
 r1 = '🧻'    
 check_comp = 0
 check_player = 0
-
-
+data = test  #  переменную для словаря, что бы сохранял
+print(data)
+print(data_new)
 @bot.message_handler(commands=['start'])
 def start(message):
   
@@ -68,6 +71,8 @@ def my_game(message):
     #test[user][0] = check_comp
     #test[user][1] = check_player        
     #print(check_comp, check_player, "check_comp", 'check_player')
+    with open('check_bots_game.bin', 'wb') as f:  # сюда сохраняет 
+        pickle.dump(data, f)  #  сохраняет 'data' которая == 'test'
     print(test, 'test')
     
     
