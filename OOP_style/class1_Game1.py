@@ -3,19 +3,24 @@ from telebot import types
 from random import random
 import sqlite3
 import os.path
-
+import time
 
 API_TOKEN = '5047557999:AAHVO2o8e3pBwKnlKiIdCbGwSse7ycEO9O8'
 bot = telebot.TeleBot(API_TOKEN)
 
+tconv = lambda x: time.strftime("%H:%M:%S %d.%m.%Y", time.localtime(x)) #Конвертация даты в читабельный вид
+
 stone = 'камень'
 stone_smile = '🪨'
+all_stone =[stone, stone_smile, stone + stone_smile, stone_smile + stone]
 # переменные ножниц
 shear = 'ножницы'
 shear_smile = '✂️'
+all_shear = [shear, shear_smile, shear + shear_smile, shear_smile + shear]
 # переменные бумага
 paper = 'бумага'
 paper_smile = '🧻'
+all_paper = [paper, paper_smile, paper + paper_smile, paper_smile + paper]
 
 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 stone_button = types.KeyboardButton('🪨Камень')
@@ -39,9 +44,9 @@ class Tester:
         if not os.path.exists('itproger.db'):
             print('Error not file')  # можно создать
         db = sqlite3.connect('itproger.db')  # создаем таблицу с именем в скобках
-        # создаем курсор
         player = 0
         comp = 0
+        # создаем курсор
         cur = db.cursor()
         login_player = cur.execute("SELECT id FROM CHEK WHERE id = ?", (user_id,)).fetchone()
         # print('login_player', login_player)
@@ -59,7 +64,56 @@ class Tester:
             cur.execute(sql_update_query, data)
             db.commit()
 
+
+
+
+        # начинаю воротить со второй 'events' таблицей в базе 'itproger.db'
+        cur.execute("""CREATE TABLE IF NOT EXISTS events(
+           Numbers_move INT PRIMARY KEY,
+           ID_Player int, 
+           date DATE,  
+           showed_player TEXT, 
+           showed_comp TEXT, 
+           total_C_P TEXT); 
+        """)
+        db.commit()
+
+        # определяем в переменную, что показал игрок, что показал комп, классом я думаю это было бы удобнее
+        player_showed = ''
+        if message.text.lower() in all_stone:
+            player_showed = stone
+        elif message.text.lower() in all_stone:
+            player_showed = shear
+        else:
+            player_showed = paper
+
+        comp_showed = ''
+        if comp_move == 0:
+            comp_showed = stone
+        elif comp_move == 1:
+            comp_showed = shear
+        else:
+            comp_showed = paper
+        total_events = f'comp: {str(comp)}  player: {str(player)}'
+        sqlite_insert_with_param = """INSERT INTO events
+                                      (ID_Player, date, showed_player, showed_comp, total_C_P)
+                                      VALUES (?, ?, ?, ?, ?);"""
+
+        data_tuple = (user_id, tconv(message.date), player_showed, comp_showed, total_events)
+        cur.execute(sqlite_insert_with_param, data_tuple)
+
+        db.commit()
+
+        # короче, какого-то хуя не работает INTEGER PRIMARY KEY в столбце Numpers_move, везде NULL, чутка погуглил,
+        # пишут про стандарты, что беда с MySQL
+        # я "костылем" через += 1 могу сделать подсчет, но это же должно быть автоматом
+
         cur.close()
+
+
+
+
+
 
         # - замена переменных в чек
         ## - замена переменных + подсчет не чек_*** а тест +=1
