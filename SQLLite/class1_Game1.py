@@ -59,16 +59,9 @@ class Game_bot:
         if login_player is None:
             self.game_db.create_user(user_id, comp, player)
         else:
-            znachenia = cur.execute("SELECT chek_comp, chek_player FROM CHEK WHERE id = ?", (user_id,)).fetchone()
-            # print('znachenia    ', znachenia)
-            comp = int(znachenia[0])
-            player = int(znachenia[1])
-            # print('компьютер   ', comp, type(comp))
-            # print('игрок       ', player, type(player))
-            sql_update_query = """UPDATE CHEK SET chek_comp = ?, chek_player = ? WHERE id = ?"""
-            data = (comp, player, user_id)
-            cur.execute(sql_update_query, data)
-            self.game_db.sqlite.commit()
+            comp = self.game_db.opredelitb_znachenia_comp(user_id)
+            player= self.game_db.opredelitb_znachenia_player(user_id)
+            self.game_db.update_chek(comp, player, user_id)
 
         # начинаю воротить со второй 'events' таблицей в базе 'itproger.db'
         self.game_db.create_db()
@@ -280,3 +273,23 @@ class Game_db:
         self.sqlite.cursor().execute(sqlite_insert_with_param, data_tuple)
 
         self.sqlite.commit()
+
+    def opredelitb_znachenia_comp(self, user_id):
+        '''
+        Определяет счёт компа
+        :param user_id:
+        :return:
+        '''
+        znachenia = self.sqlite.cursor().execute("SELECT chek_comp, chek_player FROM CHEK WHERE id = ?", (user_id,)).fetchone()
+        comp = int(znachenia[0])
+        return comp
+
+    def opredelitb_znachenia_player(self, user_id):
+        '''
+        Определяет значения игрока
+        :param user_id:
+        :return:
+        '''
+        znachenia = self.sqlite.cursor().execute("SELECT chek_comp, chek_player FROM CHEK WHERE id = ?", (user_id,)).fetchone()
+        player = int(znachenia[1])
+        return player
